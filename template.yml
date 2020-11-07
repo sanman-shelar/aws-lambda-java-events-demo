@@ -1,12 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
+Transform: AWS::Serverless-2016-10-31
 Description: An AWS Java Events Lambda.
 Resources:
   function:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/aws-lambda-java-events-demo.jar
-      Handler: com.aws.lambda.PersonHandler
+      CodeUri: s3://sam-s3-lambda-storage/aws-lambda-java-events-demo.jar
+      Handler: com.aws.lambda.PersonHandler::handleRequest
       Runtime: java8
       Description: Java Events function
       MemorySize: 512
@@ -14,3 +14,4 @@ Resources:
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole
+        - AmazonS3ReadOnlyAccess
