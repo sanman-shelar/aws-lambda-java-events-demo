@@ -11,9 +11,15 @@ Resources:
       Description: Java Events function
       MemorySize: 512
       Timeout: 10
+      
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt PersonTopic.TopicName
+      Environment:
+        Variables:
+          PERSON_SNS_TOPIC_ARN: !Ref PersonTopic
         
       Events:
         PersonEvent:
