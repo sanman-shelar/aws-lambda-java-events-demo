@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: An AWS Java Events Lambda.
 Resources:
-  function:
+  PersonFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: s3://sam-s3-lambda-storage/aws-lambda-java-events-demo.jar
@@ -14,3 +14,25 @@ Resources:
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole
+        
+      Events:
+        ApiGateway:
+          Type: Api
+          Properties:
+            Path: /person
+            Method: POST
+            RestApiId: !Ref PersonApi
+            
+  PersonApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: qa
+      Auth:
+        ApiKeyRequired: true
+        UsagePlan:
+          CreateUsagePlan: PER_API
+          Quota:
+            Limit: 100
+            Period: DAY
+          Throttle:
+            RateLimit: 5
