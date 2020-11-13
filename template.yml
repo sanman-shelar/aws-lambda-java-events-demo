@@ -38,3 +38,4 @@ Resources:
             Period: DAY
           Throttle:
             RateLimit: 50
+            BurstLimit: 5
