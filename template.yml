@@ -19,14 +19,15 @@ Resources:
         PersonEvent:
           Type: Api
           Properties:
-            Path: /person/{proxy+}
+            Path: /person
             Method: POST
             RestApiId: !Ref PersonApi
             
   PersonApi:
     Type: AWS::Serverless::Api
-    DependsOn: !Ref PersonFunction
+    DependsOn: PersonFunction
     Properties:
+      EndpointConfiguration: REGIONAL
       StageName: qa
       Auth:
         ApiKeyRequired: true

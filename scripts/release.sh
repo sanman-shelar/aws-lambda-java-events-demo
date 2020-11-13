@@ -5,6 +5,7 @@ aws_access_secret=$4
 local_path=$5
 
 # Install required dependencies for Python script.
+pip3 install setuptools
 pip3 install boto3
 
 # Run upload script
