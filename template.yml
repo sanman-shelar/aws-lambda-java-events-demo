@@ -1,6 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: An AWS Java Events Lambda.
+
+Parameters:
+  AutoPublishCodeSha256:
+    Type: "String"
+    Description: "Sha256 to uniquely identify creation of the lambda"
+
 Resources:
   PersonFunction:
     Type: AWS::Serverless::Function
@@ -11,7 +17,8 @@ Resources:
       Description: Java Events function
       MemorySize: 512
       Timeout: 10
-      
+      AutoPublishCodeSha256: !Ref AutoPublishCodeSha256
+      AutoPublishAlias: live
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole

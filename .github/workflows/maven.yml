@@ -36,4 +36,4 @@ jobs:
         name: java-events-stack
         template: template.yml
         capabilities: CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND
-        timeout-in-minutes: 1
+        parameter-overrides: "AutoPublishCodeSha256=${{ github.sha }}"
