@@ -6,12 +6,16 @@ Parameters:
   AutoPublishCodeSha256:
     Type: "String"
     Description: "Sha256 to uniquely identify creation of the lambda"
+    
+  CodeUri:
+    Type: "String"
+    Description: "CodeUri for the Person Function"
 
 Resources:
   PersonFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://sam-s3-lambda-storage/aws-lambda-java-events-demo.jar
+      CodeUri: !Ref CodeUri
       Handler: com.aws.lambda.PersonHandler::handleRequest
       Runtime: java8
       Description: Java Events function
@@ -25,8 +29,7 @@ Resources:
             TopicName: !GetAtt PersonTopic.TopicName
       Environment:
         Variables:
-          PERSON_SNS_TOPIC_ARN: !Ref PersonTopic
-        
+          PERSON_SNS_TOPIC_ARN: !Ref PersonTopic        
       Events:
         PersonEvent:
           Type: Api
