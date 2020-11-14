@@ -22,7 +22,7 @@ public class PersonHandler implements RequestHandler<APIGatewayProxyRequestEvent
         
         AmazonSNS snsClient = AmazonSNSClientBuilder.standard().build();
         snsClient.publish(System.getenv("PERSON_SNS_TOPIC_ARN"), event.getBody());
-        logger.log("PUBLISHED TO TOPIC");
+        //logger.log("PUBLISHED TO TOPIC");
         
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
         response.setStatusCode(200);
