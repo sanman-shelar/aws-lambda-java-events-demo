@@ -36,4 +36,4 @@ jobs:
         name: java-events-stack
         template: template.yml
         capabilities: CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND
-        parameter-overrides: "AutoPublishCodeSha256=${{ github.sha }},CodeUri=s3://sam-s3-lambda-storage/aws-lambda-java-events-demo-${{ github.sha }}.jar"
+        parameter-overrides: "AutoPublishCodeSha256=${{ github.sha }},BucketName=sam-s3-lambda-storage,CodeKey=aws-lambda-java-events-demo-${{ github.sha }}.jar"

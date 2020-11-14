@@ -7,15 +7,21 @@ Parameters:
     Type: "String"
     Description: "Sha256 to uniquely identify creation of the lambda"
     
-  CodeUri:
-    Type: "String"
-    Description: "CodeUri for the Person Function"
+  BucketName:
+     Type: "String"
+     Description: "Name of the S3 bucket"
+     
+  CodeKey:
+     Type: "String"
+     Description: "Artifcat name in the S3 bucket"
 
 Resources:
   PersonFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: !Ref CodeUri
+      CodeUri:
+        Bucket: !Ref BucketName
+        Key: !Ref CodeKey
       Handler: com.aws.lambda.PersonHandler::handleRequest
       Runtime: java8
       Description: Java Events function
