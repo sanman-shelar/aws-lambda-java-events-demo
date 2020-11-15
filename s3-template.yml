@@ -13,8 +13,6 @@ Resources:
     Properties:
       BucketName: !Ref BucketName
       AccessControl: Private
-      VersioningConfiguration:
-        Status: Disabled
       LifecycleConfiguration:
         Rules:
           - Id: DeleteDevArtifactsAfterOneDay
