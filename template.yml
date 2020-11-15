@@ -25,12 +25,14 @@ Resources:
       Handler: com.aws.lambda.PersonHandler::handleRequest
       Runtime: java8
       Description: Java Events function
-      MemorySize: 1768
+      MemorySize: 1024
       Timeout: 10
+      Tracing: Active
       AutoPublishCodeSha256: !Ref AutoPublishCodeSha256
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole
+        - AWSXrayWriteOnlyAccess
         - SNSPublishMessagePolicy:
             TopicName: !GetAtt PersonTopic.TopicName
       Environment:
