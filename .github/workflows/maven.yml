@@ -27,7 +27,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
         
-    - name: Release to S3
+    - name: Create S3 Bucket
+      uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+      with:
+        name: bucket-java-events
+        template: s3-template.yml
+        capabilities: CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND
+        parameter-overrides: "BucketName=${{ secrets.AWS_BUCKET_NAME }}"
+        
+    - name: Release artifact to S3
       run: bash scripts/release.sh ${{ secrets.AWS_BUCKET_NAME }} "aws-lambda-java-events-demo-${{ github.sha }}.jar" ${{ secrets.AWS_ACCESS_KEY }} ${{ secrets.AWS_SECRET_KEY }} "target/aws-lambda-java-events-demo.jar"
       
     - name: Deploy CloudFormation Stack
@@ -36,4 +44,4 @@ jobs:
         name: java-events-stack
         template: template.yml
         capabilities: CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND
-        parameter-overrides: "AutoPublishCodeSha256=${{ github.sha }},BucketName=sam-s3-lambda-storage,CodeKey=aws-lambda-java-events-demo-${{ github.sha }}.jar"
+        parameter-overrides: "AutoPublishCodeSha256=${{ github.sha }},BucketName=${{ secrets.AWS_BUCKET_NAME }},CodeKey=aws-lambda-java-events-demo-${{ github.sha }}.jar"

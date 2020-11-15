@@ -13,7 +13,7 @@ Parameters:
      
   CodeKey:
      Type: "String"
-     Description: "Artifcat name in the S3 bucket"
+     Description: "Artifact name in the S3 bucket"
 
 Resources:
   PersonFunction:
