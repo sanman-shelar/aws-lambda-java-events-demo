@@ -12,7 +12,6 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref BucketName
-      AccessControl: Private
       LifecycleConfiguration:
         Rules:
           - Id: DeleteDevArtifactsAfterOneDay
